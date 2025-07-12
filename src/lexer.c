@@ -1,0 +1,120 @@
+#include "lexer.h"
+
+#include "cstd/string.h"
+#include "cstd/stdbool.h"
+#include "cstd/ctype.h"
+
+char *text;
+int line;
+int column;
+int idx;
+Token *TokenArray;
+
+char currentChar() {
+    return (idx < strlen(text)) ? text[idx] : '\0';
+}
+
+void advance() {
+    if (currentChar() == '\n') {
+        line++;
+        column = 0;
+    } else {
+        column++;
+    }
+
+    idx++;
+}
+
+void skipWhitespace() {
+    while (isspace(currentChar())) {
+        advance();
+    }
+}
+
+Token singleCharToken(TokenType type, char *value) {
+    int lineS = line, columnS = column;
+    advance();
+    return (Token){type, value, lineS, columnS};
+}
+
+Token getNextToken() {
+    while (true) {
+        skipWhitespace();
+
+        if (!isspace(currentChar())) {
+            break;
+        }
+    }
+
+    if (idx > strlen(text)) {
+        return (Token){TokenType_EndOfFile, "", line, column};
+    }
+
+    char character = currentChar();
+
+    if (isalpha(character)) {
+        // todo
+    }
+
+    if (isdigit(character)) {
+        // todo
+    }
+
+    if (character == '"') {
+        // todo
+    }
+
+    if (character == '+') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Plus, "+", lineS, colS};
+    }
+
+    if (character == '-') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Minus, "-", lineS, colS};
+    }
+
+    if (character == '/') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Slash, "/", lineS, colS};
+    }
+
+    if (character == '*') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Star, "*", lineS, colS};
+    }
+
+    if (character == ':') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Colon, ":", lineS, colS};
+    }
+
+    if (character == '=') {
+        int lineS = line, colS = column;
+        advance();
+        return (Token){TokenType_Equal, "=", lineS, colS};
+    }
+
+    if (character == '(')
+        return singleCharToken(TokenType_LParen, "(");
+    if (character == ')')
+        return singleCharToken(TokenType_RParen, ")");
+    if (character == '{')
+        return singleCharToken(TokenType_LBrace, "{");
+    if (character == '}')
+        return singleCharToken(TokenType_RBrace, "}");
+
+}
+
+Token* tokenize(char* input) {
+    text   = input;
+    idx    = 0;
+    line   = 1;
+    column = 1;
+
+}
