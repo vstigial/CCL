@@ -8,7 +8,6 @@ char *text;
 int line;
 int column;
 int idx;
-Token *TokenArray;
 
 char currentChar() {
     return (idx < strlen(text)) ? text[idx] : '\0';
@@ -146,4 +145,23 @@ Token* tokenize(char* input) {
     line   = 1;
     column = 1;
 
+    size_t mallocSize = 128;
+    Token *TokenArray = malloc(mallocSize * sizeof(Token));
+    size_t TokenIdx   = 0;
+
+    while (true) {
+        if (TokenIdx == mallocSize) {
+            mallocSize *= 2;
+            TokenArray = realloc(TokenArray, mallocSize * sizeof(Token));
+        }
+
+        Token token = getNextToken();
+        if (token.type == TokenType_EndOfFile)
+            break;
+
+        TokenArray[TokenIdx++] = token;
+    }
+
+    TokenArray[TokenIdx] = (Token){TokenType_EndOfFile, "", line, column};
+    return TokenArray;
 }
