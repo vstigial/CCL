@@ -59,13 +59,13 @@ Token handleIdentifier() {
     size_t length = idx - start;
     char *value = substr(text, start, length);
 
-    if (value == "fn")
+    if (streq(value, "fn"))
         return (Token){TokenType_Fn, value, lineS, columnS};
-    if (value == "return")
+    if (streq(value, "return"))
         return (Token){TokenType_Return, value, lineS, columnS};
-    if (value == "let")
+    if (streq(value, "let"))
         return (Token){TokenType_Let, value, lineS, columnS};
-    if (value == "if")
+    if (streq(value, "if"))
         return (Token){TokenType_If, value, lineS, columnS};
 
     return (Token){TokenType_Identifier, value, lineS, columnS};
