@@ -64,42 +64,18 @@ Token getNextToken() {
         // todo
     }
 
-    if (character == '+') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Plus, "+", lineS, colS};
-    }
-
-    if (character == '-') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Minus, "-", lineS, colS};
-    }
-
-    if (character == '/') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Slash, "/", lineS, colS};
-    }
-
-    if (character == '*') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Star, "*", lineS, colS};
-    }
-
-    if (character == ':') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Colon, ":", lineS, colS};
-    }
-
-    if (character == '=') {
-        int lineS = line, colS = column;
-        advance();
-        return (Token){TokenType_Equal, "=", lineS, colS};
-    }
-
+    if (character == '+')
+        return singleCharToken(TokenType_Plus, "+");
+    if (character == '-')
+        return singleCharToken(TokenType_Minus, "-");
+    if (character == '/')
+        return singleCharToken(TokenType_Slash, "/");
+    if (character == '*')
+        return singleCharToken(TokenType_Star, "*");
+    if (character == ':')
+        return singleCharToken(TokenType_Colon, ":");
+    if (character == '=')
+        return singleCharToken(TokenType_Equal, "=");
     if (character == '(')
         return singleCharToken(TokenType_LParen, "(");
     if (character == ')')
