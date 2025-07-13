@@ -22,10 +22,10 @@ typedef enum {
   TokenType_Minus,      // '-'
   TokenType_Star,       // '*'
   TokenType_Slash,      // '/'
-} TokenType;
+} Token_Type; // "TokenType" definition conflicts with winnt.h header
 
 typedef struct {
-  TokenType type;
+  Token_Type type;
   char* value;
   int line;
   int col;

@@ -1,3 +1,6 @@
+#pragma once
+
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 #define malloc(bytes)       HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, (bytes))

@@ -31,7 +31,7 @@ void skipWhitespace() {
     }
 }
 
-Token singleCharToken(TokenType type, char *value) {
+Token singleCharToken(Token_Type type, char *value) {
     int lineS = line, columnS = column;
     advance();
     return (Token){type, value, lineS, columnS};
@@ -45,9 +45,7 @@ Token handleNumber() {
     }
 
     size_t length = idx - start;
-    char value[length + 1]; // + 1 for null terminator
-
-    substr(text, value, start, length);
+    char *value = substr(text, start, length); // TODO: Remember to free these mallocs when they are finished!
 
     return (Token){TokenType_Number, value, lineS, columnS};
 }
@@ -60,9 +58,7 @@ Token handleIdentifier() {
         advance();
 
     size_t length = idx - start;
-    char value[length + 1];
-
-    substr(text, value, start, length);
+    char *value = substr(text, start, length);
 
     if (value == "fn")
         return (Token){TokenType_Fn, value, lineS, columnS};
@@ -86,9 +82,7 @@ Token handleStringLit() {
         advance();
 
     size_t length = idx - start;
-    char value[length + 1];
-
-    substr(text, value, start, length);
+    char *value = substr(text, start, length);
 
     if (currentChar() == '"')
         advance();
