@@ -52,6 +52,30 @@ Token handleNumber() {
     return (Token){TokenType_Number, value, lineS, columnS};
 }
 
+Token handleIdentifier() {
+    int lineS = line, columnS = column;
+    size_t start = idx;
+
+    while (isalnum(currentChar()) || currentChar() == '_')
+        advance();
+
+    size_t length = idx - start;
+    char value[length + 1];
+
+    substr(text, value, start, length);
+
+    if (value == "fn")
+        return (Token){TokenType_Fn, value, lineS, columnS};
+    if (value == "return")
+        return (Token){TokenType_Return, value, lineS, columnS};
+    if (value == "let")
+        return (Token){TokenType_Let, value, lineS, columnS};
+    if (value == "if")
+        return (Token){TokenType_If, value, lineS, columnS};
+
+    return (Token){TokenType_Identifier, value, lineS, columnS};
+}
+
 Token getNextToken() {
     while (true) {
         skipWhitespace();
@@ -68,7 +92,7 @@ Token getNextToken() {
     char character = currentChar();
 
     if (isalpha(character)) {
-        // todo
+        return handleIdentifier();
     }
 
     if (isdigit(character)) {
