@@ -98,7 +98,7 @@ Token getNextToken() {
         }
     }
 
-    if (idx > strlen(text)) {
+    if (idx >= strlen(text)) {
         return (Token){TokenType_EndOfFile, "", line, column};
     }
 
