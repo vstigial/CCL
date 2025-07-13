@@ -76,6 +76,26 @@ Token handleIdentifier() {
     return (Token){TokenType_Identifier, value, lineS, columnS};
 }
 
+Token handleStringLit() {
+    int lineS = line, columnS = column;
+    advance(); // Skip opening '"'
+
+    size_t start = idx;
+
+    while (currentChar() != '"' && currentChar() != '\0')
+        advance();
+
+    size_t length = idx - start;
+    char value[length + 1];
+
+    substr(text, value, start, length);
+
+    if (currentChar() == '"')
+        advance();
+
+    return (Token){TokenType_String, value, lineS, columnS};
+}
+
 Token getNextToken() {
     while (true) {
         skipWhitespace();
@@ -100,7 +120,7 @@ Token getNextToken() {
     }
 
     if (character == '"') {
-        // todo
+        return handleStringLit();
     }
 
     if (character == '+')
