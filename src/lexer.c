@@ -37,6 +37,21 @@ Token singleCharToken(TokenType type, char *value) {
     return (Token){type, value, lineS, columnS};
 }
 
+Token handleNumber() {
+    int lineS = line, columnS = column;
+    size_t start = idx;
+    while (isdigit(currentChar())) {
+        advance();
+    }
+
+    size_t length = idx - start;
+    char value[length + 1]; // + 1 for null terminator
+
+    substr(text, value, start, length);
+
+    return (Token){TokenType_Number, value, lineS, columnS};
+}
+
 Token getNextToken() {
     while (true) {
         skipWhitespace();
@@ -57,7 +72,7 @@ Token getNextToken() {
     }
 
     if (isdigit(character)) {
-        // todo
+        return handleNumber();
     }
 
     if (character == '"') {
