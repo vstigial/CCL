@@ -7,6 +7,7 @@ typedef enum {
   TokenType_Identifier, // variable and function names, e.g., "std", "io", "main"
   TokenType_Number,     // numeric literals, e.g., "0"
   TokenType_String,     // string literals
+  TokenType_Comma,      // ","
   TokenType_Colon,      // ":"
   TokenType_LParen,     // "("
   TokenType_RParen,     // ")"

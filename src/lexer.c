@@ -124,6 +124,8 @@ Token getNextToken() {
         return singleCharToken(TokenType_Slash, "/");
     if (character == '*')
         return singleCharToken(TokenType_Star, "*");
+    if (character == ',')
+        return singleCharToken(TokenType_Comma, ",");
     if (character == ':')
         return singleCharToken(TokenType_Colon, ":");
     if (character == '=')
