@@ -3,14 +3,15 @@
 #include "ast.h"
 #include "cstd/stdbool.h"
 
-AST_Node     *parse_program();
-AST_Node     *parse_top_level_statement();
+AST_Node     *parse_program(Token *toks);
+AST_Node     *parse_statement(bool toplevel);
 AST_Node     *parse_function_decl();
 AST_Node     *parse_let_stmt();
 AST_Node     *parse_return_stmt();
 AST_Node     *parse_expression();
 Token        *peek();
 static Token *advance();
+Token        *consumeCurrentType(Token_Type type);
 bool          checkCurrentType(Token_Type type);
 bool          matchCurrentType(Token_Type type);
 
