@@ -48,3 +48,12 @@ bool streq(const char *str1, const char *str2) {
 
     return true;
 }
+
+char *strdup(const char *str) {
+    size_t len = strlen(str);
+    char *copy = malloc(len + 1);
+    for (size_t i = 0; i <= len; ++i) {
+        copy[i] = str[i];
+    }
+    return copy;
+}

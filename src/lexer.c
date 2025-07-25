@@ -141,7 +141,7 @@ Token getNextToken() {
 
 }
 
-Token* tokenize(char* input) {
+Token* tokenize(char* input, size_t *size) {
     text   = input;
     idx    = 0;
     line   = 1;
@@ -164,6 +164,7 @@ Token* tokenize(char* input) {
         TokenArray[TokenIdx++] = token;
     }
 
+    *size = idx;
     TokenArray[TokenIdx] = (Token){TokenType_EndOfFile, "", line, column};
     return TokenArray;
 }

@@ -2,13 +2,18 @@
 
 #include "ast.h"
 #include "cstd/stdbool.h"
+#include "cstd/stddef.h"
 
-AST_Node     *parse_program(Token *toks);
+AST_Node     *parse_program(Token *toks, size_t prog_len);
 AST_Node     *parse_statement(bool toplevel);
 AST_Node     *parse_function_decl();
 AST_Node     *parse_let_stmt();
 AST_Node     *parse_return_stmt();
 AST_Node     *parse_expression();
+AST_Node     *parse_term();
+AST_Node     *parse_factor();
+AST_Node     *parse_primary();
+AST_Node     *parse_if_expr();
 Token        *peek();
 static Token *advance();
 Token        *consumeCurrentType(Token_Type type);
